@@ -10,7 +10,7 @@ import {DummyProduct3, IcBackWhite} from '../../assets';
 import {Button, Gap, Rating} from '../../components';
 import Counter from '../../components/part/Counter/counter';
 
-const ProductDetail = () => {
+const ProductDetail = ({navigation}) => {
   return (
     <View style={styles.page}>
       <ImageBackground source={DummyProduct3} style={styles.cover}>
@@ -45,7 +45,7 @@ const ProductDetail = () => {
             <Text style={styles.totalPrice}>IDR 12.000</Text>
             </View>
             <View style={styles.button}>
-            <Button text={'Checkout'}/>
+            <Button text={'Checkout'} onPress={() => navigation.navigate('OrderSummary')}/>
             </View>
           </View>
         </View>
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
       fontSize: 17, 
       fontFamily:'Poppins-Regular', 
       color: '#020202',
-  }
+  },
+
 
 });

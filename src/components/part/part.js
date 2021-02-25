@@ -15,4 +15,5 @@ export {
     HomeTabSection,
     HomeHeader,
     Rating,
+    Counter,
 }

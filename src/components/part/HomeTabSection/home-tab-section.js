@@ -38,13 +38,13 @@ const renderTabBar = (props) => (
 const Coffee = () => {
   const navigation= useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListProduct image={DummyProduct1} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct2} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct3} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct1} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct2} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct3} onPress={() => navigation.navigate('ProductDetail')}/>
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListProduct image={DummyProduct1} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct2} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct3} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct1} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct2} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct3} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
     </View>
   );
 };
@@ -52,8 +52,8 @@ const NonCoffee = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8}}>
-      <ItemListProduct image={DummyProduct1} onPress={() => navigation.navigate('ProductDetail')}/>
-      <ItemListProduct image={DummyProduct2} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct1} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
+      <ItemListProduct image={DummyProduct2} rating={3} onPress={() => navigation.navigate('ProductDetail')}/>
     </View>
   );
 };
