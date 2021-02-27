@@ -12,11 +12,11 @@ const SignUp = ({navigation}) => {
       />
       <View style={styles.container}>
         <View style={styles.photo}>
-        <View style={styles.borderPhoto}>
+          <View style={styles.borderPhoto}>
             <View style={styles.photoContainer}>
-                <Text style={styles.addPhoto}>Add Photo</Text>
+              <Text style={styles.addPhoto}>Add Photo</Text>
             </View>
-        </View>
+          </View>
         </View>
         <TextInput label={'Full Name'} placeholder={'Type your Full Name'} />
         <Gap height={16} />
@@ -27,8 +27,11 @@ const SignUp = ({navigation}) => {
         <Gap height={16} />
         <TextInput label={'Password'} placeholder={'Type your password'} />
         <Gap height={40} />
-        <Button text="Sign In" onPress={() => navigation.navigate('SignUpContinue')}/>
-        <Gap height={16}  />
+        <Button
+          text="Sign In"
+          onPress={() => navigation.navigate('SignUpContinue')}
+        />
+        <Gap height={16} />
       </View>
     </View>
   );
@@ -52,27 +55,27 @@ const styles = StyleSheet.create({
     marginTop: 26,
     marginBottom: 20,
   },
-  borderPhoto : {
-      borderWidth: 1,
-      borderColor: '#8D92A3',
-      width: 110,
-      height: 110,
-      borderRadius: 110,
-      borderStyle:'dashed',
-      alignItems: 'center',
-      justifyContent: 'center',
+  borderPhoto: {
+    borderWidth: 1,
+    borderColor: '#8D92A3',
+    width: 110,
+    height: 110,
+    borderRadius: 110,
+    borderStyle: 'dashed',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  photoContainer : {
-      width: 90,
-      height: 90,
-      borderRadius: 90,
-      backgroundColor: '#F0F0F0',
-      padding: 24,
+  photoContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 90,
+    backgroundColor: '#F0F0F0',
+    padding: 24,
   },
-  addPhoto:{
-      fontSize: 14,
-      fontFamily: 'Poppins-Light',
-      color: '#8D92A3',
-      textAlign: 'center',
-  }
+  addPhoto: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Light',
+    color: '#8D92A3',
+    textAlign: 'center',
+  },
 });

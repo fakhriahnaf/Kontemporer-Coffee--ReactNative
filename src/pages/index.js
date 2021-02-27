@@ -8,6 +8,9 @@ import Order from './OrderPage/order-page';
 import Profile from './ProfilePage/profile-page';
 import ProductDetail from './ProductDetail/product-detail';
 import OrderSummary from './OrderSummary/order-summary';
+import SuccessOrder from './SuccessOrder/success-order';
+import EmptyOrder from './EmptyOrder/empty-order';
+import OrderDetail from './OrderDetail/order-detail';
 
 export{
     SplashScreen,
@@ -20,4 +23,7 @@ export{
     Profile,
     ProductDetail,
     OrderSummary,
+    SuccessOrder,
+    EmptyOrder,
+    OrderDetail,
 };

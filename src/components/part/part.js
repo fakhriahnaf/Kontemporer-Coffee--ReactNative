@@ -6,6 +6,7 @@ import HomeTabSection from './HomeTabSection/home-tab-section';
 import HomeHeader from './HomeHeader/home-header';
 import Rating from './Rating/rating';
 import Counter from './Counter/counter';
+import ItemListMenu from './ItemListMenu/item-list-menu';
 
 export {
     Button,
@@ -16,4 +17,5 @@ export {
     HomeHeader,
     Rating,
     Counter,
+    ItemListMenu,
 }

@@ -1,19 +1,21 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {DummyProduct1} from '../../assets';
 import {ItemListProduct} from '../../components/combined/combined';
 import Header from '../../components/combined/Header/header';
 import ItemValue from '../../components/part/ItemValue/item-value';
 import {Button} from '../../components/part/part';
 
-const OrderSummary = ({navigation}) => {
+const OrderDetail = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <Header
-        title="Payment"
+        title="Order Detail"
         subtitle="Bayar dan nikmati secangkir kopimu"
         onBack={() => {}}
       />
+      <ScrollView>
       <View style={styles.content}>
         <Text style={styles.title}>Item Ordered</Text>
         <ItemListProduct
@@ -42,33 +44,41 @@ const OrderSummary = ({navigation}) => {
         <ItemValue label="Postal code" value="16164" />
         <ItemValue label="Kecamatan" value="Tanah Sareal" />
       </View>
+      <View style={styles.content}>
+        <Text style={styles.label}>Order Status:</Text>
+        <ItemValue label='#KK209313' value='Paid' valueColor='#1ABC9C'/>
+        
+      </View>
       <View style={styles.button}>
         <Button
-          text={'Checkout Now'}
+          text='Cancel Order'
+          textColor='white'
+          color='#D9435E'
           onPress={() => navigation.navigate('SuccessOrder')}
         />
       </View>
+      </ScrollView>
     </View>
   );
 };
 
-export default OrderSummary;
+export default OrderDetail;
 
 const styles = StyleSheet.create({
-  content: {
-    backgroundColor: 'white',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    marginTop: 24,
-  },
-  label: {
-    fontSize: 14,
-    fontFamily: 'Poppins-Regular',
-    color: '#020202',
-    marginBottom: 8,
-  },
-  button: {
-    paddingHorizontal: 24,
-    marginTop: 34,
-  },
+    content: {
+        backgroundColor: 'white',
+        paddingHorizontal: 24,
+        paddingVertical: 16,
+        marginTop: 24,
+      },
+      label: {
+        fontSize: 14,
+        fontFamily: 'Poppins-Regular',
+        color: '#020202',
+        marginBottom: 8,
+      },
+      button: {
+        paddingHorizontal: 24,
+        marginTop: 34,
+      },
 });

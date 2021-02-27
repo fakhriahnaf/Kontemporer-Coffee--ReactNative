@@ -3,8 +3,8 @@ import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {DummyProduct1, DummyProduct2, DummyProduct3} from '../../../assets';
 import {ItemListProduct} from '../../combined/combined';
-import {Rating} from '../part';
 import {useNavigation} from '@react-navigation/native';
+import { ItemListMenu } from '../../part/part';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -13,7 +13,7 @@ const renderTabBar = (props) => (
       backgroundColor: '#020202',
       height: 3,
       width: '15%',
-      marginLeft: '3%',
+      marginLeft: '10%',
     }}
     style={{
       backgroundColor: 'white',
@@ -22,7 +22,7 @@ const renderTabBar = (props) => (
       borderBottomColor: '#F2F2F2',
       borderBottomWidth: 1,
     }}
-    tabStyle={{borderColor: 'black', width: 105}}
+    tabStyle={{borderColor: 'black', width: 125}}
     renderLabel={({route, focused}) => (
       <Text
         style={{
@@ -35,70 +35,57 @@ const renderTabBar = (props) => (
   />
 );
 
-const Coffee = () => {
+const Account = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListMenu text='Edit Profile'/>
+      <ItemListMenu text='Help'/>
+      <ItemListMenu text='Terms and Condition'/>
+      <ItemListMenu text='Logout'/>
+    </View>
+  );
+};
+const KedaiKonco = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListProduct
         image={DummyProduct1}
-        type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
-        rating={3}
+        name='Es Kepal Milo'
+        type='past-orders'
+        items={3}
+        price='20.000'
         onPress={() => navigation.navigate('ProductDetail')}
+        status='Cancel'
+        date='Jun 12, 14:00'
       />
       <ItemListProduct
-        image={DummyProduct1}
-        type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
+        image={DummyProduct2}
         rating={3}
+        type='past-orders'
+        name='Capuchino Ice'
+        price='20.000'
         onPress={() => navigation.navigate('ProductDetail')}
-      />
-      
-    </View>
-  );
-};
-const NonCoffee = () => {
-  const navigation = useNavigation();
-  return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListProduct
-        image={DummyProduct1}
-        type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
-        rating={3}
-        onPress={() => navigation.navigate('ProductDetail')}
+        status='Cancel'
+        date='Jun 12, 14:00'
       />
     </View>
   );
 };
-
-const FirstRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#ff4081', flex: 1}]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#673ab7', flex: 1}]} />
-);
 
 const initialLayout = {width: Dimensions.get('window').width};
 
-const HomeTabSection = () => {
+const ProfileTabSection = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: '1', title: 'Coffee'},
-    {key: '2', title: 'Non-Coffee'},
-    {key: '3', title: 'Food'},
-    {key: '4', title: 'Beans'},
+    {key: '1', title: 'Account'},
+    {key: '2', title: 'Kedai Konco'},
   ]);
 
   const renderScene = SceneMap({
-    1: Coffee,
-    2: NonCoffee,
-    3: FirstRoute,
-    4: FirstRoute,
+    1: Account,
+    2: KedaiKonco,
   });
 
   return (
@@ -113,6 +100,6 @@ const HomeTabSection = () => {
   );
 };
 
-export default HomeTabSection;
+export default ProfileTabSection;
 
 const styles = StyleSheet.create({});

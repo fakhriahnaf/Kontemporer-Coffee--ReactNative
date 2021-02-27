@@ -1,21 +1,88 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import { Rating } from '../../part/part';
+import {Rating} from '../../part/part';
 
-const ItemListProduct = ({image, onPress, items, rating}) => {
+const ItemListProduct = ({
+  name,
+  image,
+  onPress,
+  items,
+  rating,
+  totalOrder,
+  price,
+  type,
+  date,
+  status
+}) => {
+  const renderContent = () => {
+    switch (type) {
+      case 'product':
+        //itemproduct
+        return (
+          <>
+            <View style={{flex: 1}}>
+              <Text style={styles.productName}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Rating  rating={rating}/>
+          </>
+        );
+      case 'order-summary':
+        return (
+          <>
+            <View style={{flex: 1}}>
+              <Text style={styles.productName}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Text style={styles.items}>{items} items</Text>
+          </>
+        );
+      case 'in-progress':
+        return (
+          <>
+            <View style={{flex: 1}}>
+              <Text style={styles.productName}>{name}</Text>
+              <Text style={styles.price}>
+                {' '}
+                {items} items x IDR {price}
+              </Text>
+            </View>
+          </>
+        );
+      case 'past-orders':
+        return (
+          <>
+            <View style={{flex: 1}}>
+              <Text style={styles.productName}>{name}</Text>
+              <Text style={styles.price}>
+                {items} items x IDR {price}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.date}>{date}</Text>
+              <Text style={styles.status}>{status}</Text>
+            </View>
+          </>
+        );
+      default:
+        return (
+          <>
+            <View style={{flex: 1}}>
+              <Text style={styles.productName}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Rating />
+          </>
+        );
+    }
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-    <View style={styles.container}>
-      <Image source={image} style={styles.productImage} />
-      <View style={{flex: 1}}>
-        <Text style={styles.productName}>Es Kopi Susu</Text>
-        <Text style={styles.price}>IDR 18.000</Text>
+      <View style={styles.container}>
+        <Image source={image} style={styles.productImage} />
+        {renderContent()}
       </View>
-      {/* untuk menampilkan items, atau rating */}
-      
-      {items && !rating && <Text style={styles.items}>{items} items</Text>} 
-      {rating && !items && <Rating/>}
-    </View>
     </TouchableOpacity>
   );
 };
@@ -39,14 +106,23 @@ const styles = StyleSheet.create({
   },
   productName: {fontFamily: 'Poppins-Medium', fontSize: 17, color: '#020202'},
   price: {
-    fontFamily: 'Poppins-Regular', 
-    fontSize: 13, 
-    color: '#8D92A3'
+    fontFamily: 'Poppins-Regular',
+    fontSize: 13,
+    color: '#8D92A3',
   },
   items: {
     fontSize: 13,
     fontFamily: 'Poppins-Regular',
     color: '#8D92A3',
   },
-
+  date: {
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: '#8D92A3',
+  },
+  status: {
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: '#D9435E',
+  }
 });
