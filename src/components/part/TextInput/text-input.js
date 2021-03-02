@@ -2,12 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View , TextInput as TextInputRN} from 'react-native'
 import { Gap } from '../part';
 
-const TextInput = ({label, placeholder}) => {
+const TextInput = ({label, placeholder, ...restProps}) => {
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
             <Gap height={8}/>
-            <TextInputRN style={styles.inpuw} placeholder={placeholder}></TextInputRN>
+            <TextInputRN style={styles.inpuw} placeholder={placeholder} {...restProps}/>
         </View>
     )
 }

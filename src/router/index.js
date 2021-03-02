@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {SplashScreen, SignIn, SignUp, SignUpContinue, SucessSignUp, Home, Order, Profile, ProductDetail, OrderSummary, SuccessOrder, EmptyOrder, OrderDetail} from '../pages';
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
+import Tes from '../pages/testcamera/tes';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -32,6 +33,7 @@ const Router = () => {
             <Stack.Screen name='SuccessOrder' component={SuccessOrder} options={{headerShown: false}}/>
             <Stack.Screen name='EmptyOrder' component={EmptyOrder} options={{headerShown: false}}/>
             <Stack.Screen name='OrderDetail' component={OrderDetail} options={{headerShown: false}}/>
+            <Stack.Screen name='Tes' component={Tes} options={{headerShown: false}}/>
 
         </Stack.Navigator>
     );

@@ -7,9 +7,11 @@ import HomeHeader from './HomeHeader/home-header';
 import Rating from './Rating/rating';
 import Counter from './Counter/counter';
 import ItemListMenu from './ItemListMenu/item-list-menu';
+import Loading from './Loading/loading';
 
 export {
     Button,
+    Loading,
     TextInput,
     Gap,
     LabelSelect,

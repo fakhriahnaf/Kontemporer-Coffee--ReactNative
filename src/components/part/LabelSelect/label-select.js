@@ -3,13 +3,16 @@ import {  StyleSheet, Text, View } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import { Gap } from '../part';
 
-const LabelSelect = ({label, placeholder}) => {
+const LabelSelect = ({label,value, onSelectChange, placeholder}) => {
     return (
        <View>
-           <Text style={styles.label}>label Select Option</Text>
+           <Text style={styles.label}>{label}</Text>
            <Gap height={8}/>
            <View style={styles.input}>
-               <Picker>
+               <Picker
+               selectedValue={value}
+               onValueChange={(itemValue) => onSelectChange(itemValue)}
+                >
                    <Picker.Item label='Tanah Sareal' value='tanah-sareal'/>
                    <Picker.Item label='Bogor Barat' value='bogor-barat'/>
                    <Picker.Item label='Bogor Timur' value='bogor-timur'/>
