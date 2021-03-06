@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -7,14 +7,55 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {DummyProduct3, IcBackWhite} from '../../assets';
-import {Button, Gap, Rating} from '../../components';
+import {Button, Gap, Number, Rating} from '../../components';
 import Counter from '../../components/part/Counter/counter';
+import { getData } from '../../utils';
 
-const ProductDetail = ({navigation}) => {
+const ProductDetail = ({navigation, route}) => {
+  const {name, picturePath, description, price, spesification, rate} = route.params;
+  const [totalItem, secTotalItem] = useState(1);
+  const [userProfile, setUserProfile] = useState({});
+  
+  useEffect(() => {
+    getData('userProfile').then((res)=> {
+      setUserProfile(res)
+    })
+  }, []);
+
+  const onOrder = () => {
+    const totalPrice = totalItem * price;
+    const ongkir = 3000;
+    const tax = (2.5/100) *totalPrice;
+    const total = totalPrice + ongkir + tax;
+
+    const data ={
+      item: {
+        id,
+        name,
+        price,
+        picturePath,
+      },
+      transaction: {
+        totalItem, 
+        totalPrice,
+        ongkir,
+        tax,
+        total,
+      },
+      userProfile,
+    };
+    console.log('data for chekout: ', data);
+    navigation.navigate('OrderSummary', data)
+  }
+
+  const onCounterChange = (value) => {
+    console.log('counter: ', value); 
+    secTotalItem(value)
+  }
   return (
     <View style={styles.page}>
-      <ImageBackground source={DummyProduct3} style={styles.cover}>
-        <TouchableOpacity style={styles.back}>
+      <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+        <TouchableOpacity style={styles.back} onPress={()=> navigation.goBack()}>
           <IcBackWhite />
         </TouchableOpacity>
       </ImageBackground>
@@ -22,30 +63,27 @@ const ProductDetail = ({navigation}) => {
         <View style={styles.mainContent}>
           <View style={styles.productDetailHeader}>
             <View>
-              <Text style={styles.title}>Es Kopi Kental Manis</Text>
+              <Text style={styles.title}>{name}</Text>
               <Gap height={8} />
-              <Rating />
+              <Rating number={rate}/>
             </View>
-            <Counter/>
+            <Counter onValueChange={onCounterChange}/>
           </View>
           <Text style={styles.desc}>
-            Es kopi susu kekinian (kadang disebut es kopi susu gula aren) adalah
-            istilah untuk mencakup jenis racikan kopi yang mengandung susu dan
-            gula aren. Racikan ini umumnya disajikan dingin dengan es dalam
-            kemasan gelas plastik bertutup.
+            {description}
           </Text>
           <Gap height={20}/>
           <Text style={styles.label}>Ingredients and Spesification</Text>
-          <Text style={styles.desc}>arabica 50:50, beans bogor</Text>
+          <Text style={styles.desc}>{spesification}</Text>
         </View>
         <View>
           <View style={styles.footer}>
             <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price:</Text>
-            <Text style={styles.totalPrice}>IDR 12.000</Text>
+            <Number number={totalItem * price} style={styles.totalPrice}/>
             </View>
             <View style={styles.button}>
-            <Button text={'Checkout'} onPress={() => navigation.navigate('OrderSummary')}/>
+            <Button text={'Checkout'} onPress={onOrder}/>
             </View>
           </View>
         </View>

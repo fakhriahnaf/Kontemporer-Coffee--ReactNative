@@ -1,15 +1,24 @@
 import React , {useEffect}from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Logo } from '../../assets/illustration';
+import { getData } from '../../utils';
 
 const SplashScreen = ({navigation}) => {
 
     useEffect(() => {
         setTimeout(() => {
-            navigation.replace('SignIn');
+            getData('token').then((res)=> {
+                console.log('token : ', res);
+                if(res) {
+                  navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+                } else {
+                    navigation.replace('SignIn');
+                }
+              });
         }, 2000);
     }, []);
-    
+
+   
     return (
         <View style={{
             backgroundColor:'#bd9354',

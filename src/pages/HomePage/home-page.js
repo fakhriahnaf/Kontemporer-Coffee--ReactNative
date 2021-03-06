@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, View, Image, ScrollView, Dimensions} from 'react-native';
-import {
-  DummyProduct1,
-  DummyProduct2,
-  DummyProduct3,
-  ProfileDummy,
-} from '../../assets';
+import { useDispatch, useSelector } from 'react-redux';
 import {Gap, HomeHeader, HomeTabSection, ProductCard} from '../../components';
+import {getProductData} from '../../redux/action/home';
 
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {product} = useSelector((state) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getProductData());
+  }, []);
   return (
     <View style={styles.page}>
      <HomeHeader/>
@@ -18,9 +20,17 @@ const Home = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator="false">
         <View style={styles.productCardContainer}>
           <Gap width={24} />
-          <ProductCard image={DummyProduct1} title={'Es Kopi Kental Manis'} />
-          <ProductCard image={DummyProduct2} title={'Es Mochachino'} />
-          <ProductCard image={DummyProduct3} title={'Latte Dingin'} />
+          {product.map((itemProduct)=>{
+            return (
+              <ProductCard
+                    key={itemProduct.id}
+                    title={itemProduct.name}
+                    image={{uri: itemProduct.picturePath}}
+                    rating={itemProduct.rate}
+                    onPress={() => navigation.navigate('ProductDetail', itemProduct)}
+                  />
+            )
+          })}
         </View>
       </ScrollView>
       </View>

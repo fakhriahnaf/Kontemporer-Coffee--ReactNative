@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState ,useEffect} from 'react'
 import { StyleSheet, Text, View ,Image} from 'react-native'
 import { ProfileDummy } from '../../../assets';
 import { Gap } from '../part';
+import {getData} from '../../../utils';
+import { useNavigation } from '@react-navigation/native';
 
 
 const HomeHeader = () => {
+  const navigation = useNavigation();
+  const [photo, setPhoto] = useState(ProfileDummy);
+
+  // useEffect(() => {
+  //   navigation.addListener('focus', () => {
+  //     getData('userProfile').then((res) => {
+  //       setPhoto({uri: res.profile_photo_path});
+  //     }); 
+  //   });
+  // }, [navigation]);
+
     return (
         <View style={styles.profileContainer}>
         <View>
@@ -12,7 +25,7 @@ const HomeHeader = () => {
           <Gap height={8} />
           <Text style={styles.desc}>Cita rasa kopi nusantara</Text>
         </View>
-        <Image source={ProfileDummy} style={styles.profile} />
+        <Image source={photo} style={styles.profile} />
       </View>
     );
 }

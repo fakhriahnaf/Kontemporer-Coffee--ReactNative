@@ -8,6 +8,7 @@ import Rating from './Rating/rating';
 import Counter from './Counter/counter';
 import ItemListMenu from './ItemListMenu/item-list-menu';
 import Loading from './Loading/loading';
+import Number from './Number/number'
 
 export {
     Button,
@@ -20,4 +21,5 @@ export {
     Rating,
     Counter,
     ItemListMenu,
+    Number,
 }

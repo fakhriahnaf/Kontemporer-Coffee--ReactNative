@@ -2,10 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import Axios from 'axios';
 import {Header, TextInput, Gap, Button, LabelSelect} from '../../components';
 import {useForm} from '../../utils';
-import showMessage from '../../utils/showMessage/show-message';
+import {setLoading, signUpAction} from '../../redux/action';
 
 const SignUpContinue = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -24,43 +23,9 @@ const SignUpContinue = ({navigation}) => {
       ...form,
       ...registerReducer,
     };
-    // dispatch({
-    //   type: 'SET_REGISTER_CONTINUE',
-    //   value: 'form'
-    // })
     console.log('data register: ', data);
-    dispatch({type: 'SET_LOADING', value: true});
-    Axios.post('http://localhost:8000/api/register/', data)
-      .then((res) => {
-        console.log('data success:', res.data);
-
-        if (photoReducer.isUploadPhoto) {
-          const photoForUpload = new FormData();
-          photoForUpload.append('file', photoReducer);
-
-          Axios.post('http://localhost:8000/api/user/photo', photoForUpload, {
-            headers: {
-              Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
-              'Content-Type': 'multipart/from-data',
-            },
-          })
-            .then((resUpload) => {
-              console.log('success upload: ', resUpload);
-            })
-            .catch((err) => {
-              showMessage('Upload Tidak Berhasil');
-            });
-        }
-
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage('Register Success', 'success');
-        navigation.replace('SuccessSignUp');
-      })
-      .catch((err) => {
-        console.log('sign up error: ', err.response.data.message);
-        dispatch({type: 'SET_LOADING', value: false});
-        showToast(err?.response?.data?.message, 'danger');
-      });
+    dispatch(setLoading(true));
+    dispatch(signUpAction(data, photoReducer, navigation));
   };
 
   return (
@@ -68,7 +33,7 @@ const SignUpContinue = ({navigation}) => {
       <Header
         title={'Sign Up'}
         subtitle={'Just for register'}
-        onBack={() => {}}
+        onBack={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.container}>

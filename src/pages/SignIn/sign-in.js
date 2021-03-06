@@ -1,59 +1,47 @@
-import React, {useState} from 'react';
-import Axios from 'axios';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Button, Gap, Header, TextInput} from '../../components';
+import {signInAction} from '../../redux/action/auth';
 import {useForm} from '../../utils';
 
 const SignIn = ({navigation}) => {
-  //   const [email, setEmail] = useState('');
-  //   const [password, setPassword] = useState('');
   const [form, setForm] = useForm({
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
   const onSubmit = () => {
-    Axios.post('http://localhost:8000/api/login/', form)
-      .then((res) => {
-        console.log('success', res);
-      })
-      .catch((err) => {
-        console.log('error', err);
-      });
+    dispatch(signInAction(form, navigation));
   };
 
   return (
     <View style={styles.page}>
-      <Header title={'Sign In'} subtitle={'Just for login'} />
+      <Header title="Sign In" subTitle="Find your best ever meal" />
       <View style={styles.container}>
         <TextInput
-          label={'Email Address'}
-          placeholder={'Type your Email Address'}
+          label="Email Address"
+          placeholder="Type your email address"
           value={form.email}
           onChangeText={(value) => setForm('email', value)}
         />
         <Gap height={16} />
         <TextInput
-          label={'Password'}
-          placeholder={'Type your password'}
+          label="Password"
+          placeholder="Type your password"
           value={form.password}
           onChangeText={(value) => setForm('password', value)}
           secureTextEntry
         />
-        <Gap height={40} />
-        <Button text="Sign In" onPress={() => navigation.navigate('MainApp')} />
-        <Gap height={16} />
+        <Gap height={24} />
+        <Button text="Sign In" onPress={onSubmit} />
+        <Gap height={12} />
         <Button
-          text="Create a new account"
+          text="Create New Account"
           color="#8D92A3"
           textColor="white"
           onPress={() => navigation.navigate('SignUp')}
-        />
-        <Button
-          text="Create a new account"
-          color="#8D92A3"
-          textColor="white"
-          onPress={() => navigation.navigate('Tes')}
         />
       </View>
     </View>
@@ -63,9 +51,7 @@ const SignIn = ({navigation}) => {
 export default SignIn;
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
+  page: {flex: 1},
   container: {
     backgroundColor: 'white',
     paddingHorizontal: 24,

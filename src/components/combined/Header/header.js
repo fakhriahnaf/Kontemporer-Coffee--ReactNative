@@ -6,9 +6,9 @@ const Header = ({title, subtitle, onBack}) => {
   return (
     <View style={styles.container}>
     {onBack  &&( 
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onBack}>
       <View style={styles.back}>
-        <IcBack  />
+        <IcBack/>
       </View>
     </TouchableOpacity>
     )}

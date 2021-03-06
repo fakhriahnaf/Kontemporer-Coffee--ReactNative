@@ -12,7 +12,7 @@ const SucessSignUp = ({navigation}) => {
             <Text style={styles.subtitle}>some order as a self hearning</Text>
             <Gap height={60}/>
             <View style={styles.buttonContainer}>
-                <Button text='Find the origin' onPress={() => navigation.replace('MainApp')}/>
+                <Button text='Find the origin' onPress={() => navigation.reset({index: 0, routes: [{name: 'MainApp'}]})}/>
             </View>
         </View>
     )

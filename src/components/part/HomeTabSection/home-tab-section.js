@@ -3,8 +3,9 @@ import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {DummyProduct1, DummyProduct2, DummyProduct3} from '../../../assets';
 import {ItemListProduct} from '../../combined/combined';
-import {Rating} from '../part';
 import {useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductDataByTypes } from '../../../redux/action/home';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -37,51 +38,102 @@ const renderTabBar = (props) => (
 
 const Coffee = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {coffee} = useSelector((state) => state.homeReducer);
+
+  useDispatch(()=> {
+    dispatch(getProductDataByTypes('coffee'))
+  })
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListProduct
-        image={DummyProduct1}
+      {coffee.map((item) => {
+        return (<ItemListProduct
+        key={item.id}
+        image={{uri: item.picturePath}}
         type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
-        rating={3}
+        name={item.name}
+        price={item.price}
+        rating={item.rate}
         onPress={() => navigation.navigate('ProductDetail')}
-      />
-      <ItemListProduct
-        image={DummyProduct1}
-        type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
-        rating={3}
-        onPress={() => navigation.navigate('ProductDetail')}
-      />
-      
+      />)
+      })}  
     </View>
   );
 };
 const NonCoffee = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {non_coffee} = useSelector((state) => state.homeReducer)
+
+  useDispatch(()=> {
+    dispatch(getProductDataByTypes('non_coffee'))
+  })
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListProduct
-        image={DummyProduct1}
+      {non_coffee.map((item) => {
+        return (<ItemListProduct
+        key={item.id}
+        image={{uri: item.picturePath}}
         type='product'
-        name='Es Kopi Kental Manis'
-        price='12.000'
-        rating={3}
+        name={item.name}
+        price={item.price}
+        rating={item.rate}
         onPress={() => navigation.navigate('ProductDetail')}
-      />
+      />)
+      })}  
+    </View>
+  );
+};
+const Food = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {food} = useSelector((state) => state.homeReducer)
+
+  useDispatch(()=> {
+    dispatch(getProductDataByTypes('food'))
+  })
+  return (
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      {food.map((item) => {
+        return (<ItemListProduct
+        key={item.id}
+        image={{uri: item.picturePath}}
+        type='product'
+        name={item.name}
+        price={item.price}
+        rating={item.rate}
+        onPress={() => navigation.navigate('ProductDetail')}
+      />)
+      })}  
+    </View>
+  );
+};
+const Beans = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {beans} = useSelector((state) => state.homeReducer)
+
+  useDispatch(()=> {
+    dispatch(getProductDataByTypes('beans'))
+  })
+  return (
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      {beans.map((item) => {
+        return (<ItemListProduct
+        key={item.id}
+        image={{uri: item.picturePath}}
+        type='product'
+        name={item.name}
+        price={item.price}
+        rating={item.rate}
+        onPress={() => navigation.navigate('ProductDetail')}
+      />)
+      })}  
     </View>
   );
 };
 
-const FirstRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#ff4081', flex: 1}]} />
-);
 
-const SecondRoute = () => (
-  <View style={[styles.scene, {backgroundColor: '#673ab7', flex: 1}]} />
-);
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -97,8 +149,8 @@ const HomeTabSection = () => {
   const renderScene = SceneMap({
     1: Coffee,
     2: NonCoffee,
-    3: FirstRoute,
-    4: FirstRoute,
+    3: Food,
+    4: Beans,
   });
 
   return (

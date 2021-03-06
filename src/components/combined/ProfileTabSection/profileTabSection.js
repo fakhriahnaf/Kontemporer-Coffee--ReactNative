@@ -5,6 +5,7 @@ import {DummyProduct1, DummyProduct2, DummyProduct3} from '../../../assets';
 import {ItemListProduct} from '../../combined/combined';
 import {useNavigation} from '@react-navigation/native';
 import { ItemListMenu } from '../../part/part';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -37,12 +38,17 @@ const renderTabBar = (props) => (
 
 const Account = () => {
   const navigation = useNavigation();
+  const signOut =() =>{
+    AsyncStorage.multiRemove(['userProfile','token']).then(() => {
+      navigation.reset({index: 0, routes: [{name: 'SignIn'}]})
+    }) 
+  }
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListMenu text='Edit Profile'/>
       <ItemListMenu text='Help'/>
       <ItemListMenu text='Terms and Condition'/>
-      <ItemListMenu text='Logout'/>
+      <ItemListMenu text='Logout' onPress={signOut}/>
     </View>
   );
 };

@@ -6,46 +6,58 @@ import Header from '../../components/combined/Header/header';
 import ItemValue from '../../components/part/ItemValue/item-value';
 import {Button} from '../../components/part/part';
 
-const OrderSummary = ({navigation}) => {
+const OrderSummary = ({navigation, route}) => {
+  const {item, transaction, userProfile} = route.params;
+
+  const onCheckout = () => {
+    const data = {
+      product_id: item.id,
+      user_id: userProfile,
+      quantity: transaction.totalItem,
+      total: transaction.total,
+      status: 'PENDING',
+    }
+    navigation.replace('SuccessOrder')
+  }
   return (
     <View style={{flex: 1}}>
       <Header
         title="Payment"
         subtitle="Bayar dan nikmati secangkir kopimu"
-        onBack={() => {}}
+        onBack={() => navigation.goBack()}
       />
       <View style={styles.content}>
         <Text style={styles.title}>Item Ordered</Text>
         <ItemListProduct
-          image={DummyProduct1}
-          items={2}
+          image={{uri: item.picturePath}}
+          items={transaction.totalItem}
           type="order-summary"
-          name="Es Kopi Kental Manis"
-          price="12.000"
+          name={item.name}
+          price={item.price}
         />
         <Text style={styles.label}>Detail Transaction</Text>
-        <ItemValue label="Es Kopi Kental Manis" value="IDR 12.000" />
-        <ItemValue label="Ongkir" value="IDR 3.000" />
-        <ItemValue label="Tax 2.5%" value="IDR 300" />
+        <ItemValue label={item.name} value={transaction.totalPrice} />
+        <ItemValue label="Ongkir" value={transaction.ongkir} />
+        <ItemValue label="Tax 2.5%" value={transaction.tax} />
         <ItemValue
           label="Total Price"
-          value="IDR 15.300"
+          value={transaction.total}
           valueColor="#1AbC9c"
         />
       </View>
 
       <View style={styles.content}>
         <Text style={styles.label}>Deliver to: </Text>
-        <ItemValue label="Name" value="Haris Martin" />
-        <ItemValue label="Phone No." value="0812332221" />
-        <ItemValue label="Address" value="Bogor Valley kamar 1702" />
-        <ItemValue label="Postal code" value="16164" />
-        <ItemValue label="Kecamatan" value="Tanah Sareal" />
+        <ItemValue label="Name" value={userProfile.name} />
+        <ItemValue label="Phone No." value={userProfile.phoneNumber} />
+        <ItemValue label="Address" value={userProfile.address} />
+        <ItemValue label="Postal code" value={userProfile.portalCode} />
+        <ItemValue label="Kecamatan" value={userProfile.kecamatan_area} />
       </View>
       <View style={styles.button}>
         <Button
           text={'Checkout Now'}
-          onPress={() => navigation.navigate('SuccessOrder')}
+          onPress={onCheckout}
         />
       </View>
     </View>

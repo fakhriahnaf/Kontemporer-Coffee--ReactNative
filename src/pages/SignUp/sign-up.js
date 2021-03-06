@@ -25,10 +25,9 @@ const SignUp = ({navigation}) => {
 
   const addPhoto = () => {
     let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
+      quality: 0.5,
+      maxWidth: 200,
+      maxHeight: 200,
     };
     ImagePicker.launchImageLibrary(options, (response) => {
       console.log('Response = ', response);
@@ -55,8 +54,8 @@ const SignUp = ({navigation}) => {
     <View style={styles.page}>
       <Header
         title={'Sign Up'}
-        subtitle={'Just for register'}
-        onBack={() => {}}
+        subtitle={'Just for registerxx'}
+        onBack={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.container}>

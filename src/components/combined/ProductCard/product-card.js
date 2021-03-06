@@ -1,18 +1,21 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DummyProduct1, IcStarOn } from '../../../assets';
 import { Gap, Rating } from '../../part/part';
 
-const ProductCard = ({image, title}) => {
+const ProductCard = ({image, title, rating, onPress}) => {
     return (
+        <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
         <View style={styles.container}>
             <Image style={styles.photo} source={image}/>
             <View style={styles.content}>
             <Text style={styles.text}>{title}</Text>
             <Gap height={8}/>
-            <Rating/>
+            <Rating number={rating}/>
             </View>
         </View>
+        </TouchableOpacity>
     )
 }
 
