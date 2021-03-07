@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {DummyProduct1, DummyProduct2, DummyProduct3} from '../../../assets';
@@ -41,22 +41,25 @@ const Coffee = () => {
   const dispatch = useDispatch();
   const {coffee} = useSelector((state) => state.homeReducer);
 
-  useDispatch(()=> {
-    dispatch(getProductDataByTypes('coffee'))
-  })
+  useEffect(() => {
+    dispatch(getProductDataByTypes('coffee'));
+  }, []);
+
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {coffee.map((item) => {
-        return (<ItemListProduct
-        key={item.id}
-        image={{uri: item.picturePath}}
-        type='product'
-        name={item.name}
-        price={item.price}
-        rating={item.rate}
-        onPress={() => navigation.navigate('ProductDetail')}
-      />)
-      })}  
+        return (
+          <ItemListProduct
+            key={item.id}
+            type="product"
+            name={item.name}
+            price={item.price}
+            rating={item.rate}
+            image={{uri: item.picturePath}}
+            onPress={() => navigation.navigate('ProductDetail', item)}
+          />
+        );
+      })}
     </View>
   );
 };
@@ -65,9 +68,9 @@ const NonCoffee = () => {
   const dispatch = useDispatch();
   const {non_coffee} = useSelector((state) => state.homeReducer)
 
-  useDispatch(()=> {
-    dispatch(getProductDataByTypes('non_coffee'))
-  })
+  useEffect(() => {
+    dispatch(getProductDataByTypes('non_coffee'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {non_coffee.map((item) => {
@@ -89,9 +92,9 @@ const Food = () => {
   const dispatch = useDispatch();
   const {food} = useSelector((state) => state.homeReducer)
 
-  useDispatch(()=> {
-    dispatch(getProductDataByTypes('food'))
-  })
+  useEffect(() => {
+    dispatch(getProductDataByTypes('food'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {food.map((item) => {
@@ -113,9 +116,9 @@ const Beans = () => {
   const dispatch = useDispatch();
   const {beans} = useSelector((state) => state.homeReducer)
 
-  useDispatch(()=> {
-    dispatch(getProductDataByTypes('beans'))
-  })
+  useEffect(() => {
+    dispatch(getProductDataByTypes('beans'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {beans.map((item) => {

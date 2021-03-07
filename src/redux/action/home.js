@@ -17,19 +17,19 @@ export const getProductData = () => (dispatch) => {
 };
 
 export const getProductDataByTypes = (types) => (dispatch) => {
-  Axios.get(`${API_HOST.url}/product?types=${types}`)
+  Axios.get(`${API_HOST.url}/product/?types=${types}`)
     .then((res) => {
       if (types === 'coffee') {
-        dispatch({type: 'COFFEE', value: res.data.data.data});
+        dispatch({type: 'SET_COFFEE', value: res.data.data.data});
       }
       if (types === 'non_coffee') {
-        dispatch({type: 'NON_COFFEE', value: res.data.data.data});
+        dispatch({type: 'SET_NON_COFFEE', value: res.data.data.data});
       }
       if (types === 'food') {
-        dispatch({type: 'FOOD', value: res.data.data.data});
+        dispatch({type: 'SET_FOOD', value: res.data.data.data});
       }
       if (types === 'beans') {
-        dispatch({type: 'BEANS', value: res.data.data.data});
+        dispatch({type: 'SET_BEANS', value: res.data.data.data});
       }
     })
     .catch((err) => {

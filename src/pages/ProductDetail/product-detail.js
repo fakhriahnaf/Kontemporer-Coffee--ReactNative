@@ -12,7 +12,7 @@ import Counter from '../../components/part/Counter/counter';
 import { getData } from '../../utils';
 
 const ProductDetail = ({navigation, route}) => {
-  const {name, picturePath, description, price, spesification, rate} = route.params;
+  const {name, picturePath, description, price, spesification, rate, id} = route.params;
   const [totalItem, secTotalItem] = useState(1);
   const [userProfile, setUserProfile] = useState({});
   

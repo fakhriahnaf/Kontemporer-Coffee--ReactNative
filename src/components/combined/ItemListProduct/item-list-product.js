@@ -24,7 +24,7 @@ const ItemListProduct = ({
               <Text style={styles.productName}>{name}</Text>
               <Text style={styles.price}>IDR {price}</Text>
             </View>
-            <Rating  rating={rating}/>
+            <Rating  number={rating}/>
           </>
         );
       case 'order-summary':

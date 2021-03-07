@@ -1,23 +1,71 @@
-import React from 'react';
+import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {DummyProduct1} from '../../assets';
 import {ItemListProduct} from '../../components/combined/combined';
 import Header from '../../components/combined/Header/header';
 import ItemValue from '../../components/part/ItemValue/item-value';
-import {Button} from '../../components/part/part';
+import {Button, Loading} from '../../components/part/part';
+import {API_HOST} from '../../config';
+import {getData, showMessage} from '../../utils';
+import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [paymentURL, setPaymentURL] = useState('https://google.com');
 
   const onCheckout = () => {
     const data = {
       product_id: item.id,
-      user_id: userProfile,
+      user_id: userProfile.id,
       quantity: transaction.totalItem,
       total: transaction.total,
       status: 'PENDING',
+    };
+    getData('token').then((resToken) => {
+      Axios.post(`${API_HOST.url}/checkout`, data, {
+        headers: {
+          Authorization: resToken.value,
+        },
+      })
+        .then((res) => {
+          setIsPaymentOpen(true);
+          setPaymentURL(res.data.data.payment_url);
+        })
+        .catch((err) => {
+          showMessage(
+            `${err?.response?.data?.message} on Checkout API` ||
+              'Terjadi Kesalahan di API Checkout',
+          );
+        });
+    });
+  };
+
+  const onNavChange = (state) => {
+    // TODO: Use This For Production
+    // const urlSuccess =
+    //   'http://foodmarket-backend.buildwithangga.id/midtrans/success?order_id=574&status_code=201&transaction_status=pending';
+    const titleWeb = 'Laravel';
+    if (state.title === titleWeb) {
+      navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
     }
-    navigation.replace('SuccessOrder')
+  };
+  if (isPaymentOpen) {
+    return (
+      <>
+        <Header
+          title="Payment"
+          subtitle="Silahkan bayar sesuai dengan tagihan"
+          onBack={() => setIsPaymentOpen(false)}
+        />
+        <WebView
+          source={{uri: paymentURL}}
+          onNavigationStateChange={onNavChange}
+          renderLoading={()=> <Loading/>}
+          style={{marginTop: 20}}
+        />
+      </>
+    );
   }
   return (
     <View style={{flex: 1}}>
@@ -55,10 +103,7 @@ const OrderSummary = ({navigation, route}) => {
         <ItemValue label="Kecamatan" value={userProfile.kecamatan_area} />
       </View>
       <View style={styles.button}>
-        <Button
-          text={'Checkout Now'}
-          onPress={onCheckout}
-        />
+        <Button text={'Checkout Now'} onPress={onCheckout} />
       </View>
     </View>
   );
