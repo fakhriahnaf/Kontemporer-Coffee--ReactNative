@@ -13,7 +13,7 @@ const OrderDetail = ({navigation}) => {
       <Header
         title="Order Detail"
         subtitle="Bayar dan nikmati secangkir kopimu"
-        onBack={() => {}}
+        onBack={() => navigation.goBack()}
       />
       <ScrollView>
       <View style={styles.content}>

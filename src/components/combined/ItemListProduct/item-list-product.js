@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {Rating} from '../../part/part';
+import {Number, Rating} from '../../part/part';
 
 const ItemListProduct = ({
   name,
@@ -42,14 +42,18 @@ const ItemListProduct = ({
           <>
             <View style={{flex: 1}}>
               <Text style={styles.productName}>{name}</Text>
+              <View>
               <Text style={styles.price}>
-                {' '}
                 {items} items x IDR {price}
               </Text>
+              <Number number={price} style={styles.price}/>
+              </View>
             </View>
           </>
         );
       case 'past-orders':
+
+        const formatedDate = new Date(date).toLocaleDateString();
         return (
           <>
             <View style={{flex: 1}}>
@@ -59,7 +63,7 @@ const ItemListProduct = ({
               </Text>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
+              <Text style={styles.date}>{formatedDate}</Text>
               <Text style={styles.status}>{status}</Text>
             </View>
           </>
